@@ -9,8 +9,7 @@
     <title>Thing</title>
     <style>
         i {
-            position: relative;
-            left: 0.5rem;
+            padding-right: 0.5rem;
             -webkit-transition: all 300ms ease-in 0s;
             -moz-transition: all 300ms ease-in 0s;
             -o-transition: all 300ms ease-in 0s;
@@ -18,6 +17,9 @@
         }
 
         .ui-state-active i {
+            padding-right: unset;
+            padding-top: 0.5rem;
+            padding-left: 0.5rem;
             -webkit-transform: rotate(90deg);
             -moz-transform: rotate(90deg);
             -o-transform: rotate(90deg);
@@ -207,15 +209,15 @@
 
         /* Setup cursors to show over h1, h2, h3, h4 */
         /* Appending the FA icon to every heading */
-        $(all).append("<i />").css("cursor", "pointer");
+        $(all).prepend("<i />").css("cursor", "pointer");
         $("i").addClass(icon);
 
         /* Remove the arrow from the last link TODO: hardcoded, fix */
         $(".html-block .sqs-block-content h2 i").last().removeClass(icon)
 
         /* Close all tabs to begin with */
-        $(h1).nextUntil("h1").slideUp();
-        $(h2).nextUntil("h2, h1").slideUp();
+        // $(h1).nextUntil("h1").slideUp();
+        // $(h2).nextUntil("h2, h1").slideUp();
         $(h3).nextUntil("h3, h2, h1").slideUp();
         $(h4).nextUntil("h4, h3, h2, h1").slideUp();
 
