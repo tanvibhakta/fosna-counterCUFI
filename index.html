@@ -244,31 +244,7 @@
             $(this).nextUntil("h4, h3, h2, h1").slideToggle();
             $(this).toggleClass("ui-state-active");
         });
-
-
-        //We don't have H1st, this is legacy code lol
-
-        /* Open clicked h1 and close all others */
-        $(h1).click(function () {
-            $(this).siblings("h1").nextUntil("h1").slideUp();
-            $(this).siblings("h1").removeClass("ui-state-active");
-            $(this).nextUntil("h1").slideToggle();
-            $(this).toggleClass("ui-state-active");
-
-            /* But we need to force the subfolders to close  */
-            $(h2)
-                .nextUntil("h2, h1")
-                .hide()
-                .removeClass("ui-state-active");
-            $(h3)
-                .nextUntil("h3, h2, h1")
-                .hide()
-                .removeClass("ui-state-active");
-            $(h4)
-                .nextUntil("h4, h3, h2, h1")
-                .hide()
-                .removeClass("ui-state-active");
-        });
+        
 
     });
 
