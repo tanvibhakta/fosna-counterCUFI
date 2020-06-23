@@ -216,18 +216,37 @@
         $(".html-block .sqs-block-content h2 i").last().removeClass(icon)
 
         /* Close all tabs to begin with */
-        // $(h1).nextUntil("h1").slideUp();
-        // $(h2).nextUntil("h2, h1").slideUp();
+        $(h1).nextUntil("h1").slideUp();
+        $(h2).nextUntil("h2, h1").slideUp();
         $(h3).nextUntil("h3, h2, h1").slideUp();
         $(h4).nextUntil("h4, h3, h2, h1").slideUp();
 
-        /* Expand the first heading tab */
-        // $(h2).first().addClass("ui-state-active").nextUntil("h2, h1").slideDown().addClass("ui-state-active");
+        //Open h3 subheadings as well
+        $(h3).slideDown();
 
-        $(h2).addClass("ui-state-active").nextUntil("h3, h2").slideDown();
-        ;
-        // $(h2).nextUntil("p").slideDown();
-        // $("h2").addClass("fun");
+        /* Toggle state of clicked h2 */
+        $(h2).click(function () {
+            $(this).nextUntil("h4, h3, h2, h1").slideToggle();
+            $(this).toggleClass("ui-state-active");
+        });
+
+        /* Toggle state of clicked h3 */
+        $(h3).click(function () {
+            $(this).nextUntil("h4, h3, h2, h1").slideToggle();
+            $(this).toggleClass("ui-state-active");
+
+            //Toggle appearance of h4
+            $(this).nextUntil("h3").next("h4").slideToggle();
+        });
+
+        /* Toggle state of clicked h4 */
+        $(h4).click(function () {
+            $(this).nextUntil("h4, h3, h2, h1").slideToggle();
+            $(this).toggleClass("ui-state-active");
+        });
+
+
+        //We don't have H1st, this is legacy code lol
 
         /* Open clicked h1 and close all others */
         $(h1).click(function () {
@@ -249,51 +268,7 @@
                 .nextUntil("h4, h3, h2, h1")
                 .hide()
                 .removeClass("ui-state-active");
-
         });
-
-        /* Open clicked h2 and close all other h2s */
-        $(h2).click(function () {
-            $(this).siblings("h2").nextUntil("h2, h1").slideUp();
-            $(this).siblings("h2").removeClass("ui-state-active");
-            $(this).nextUntil("h2, h1").slideToggle();
-            $(this).toggleClass("ui-state-active");
-
-            /* But we need to force the subfolders to close  */
-            $(h3)
-                .nextUntil("h3, h2, h1")
-                .hide()
-                .removeClass("ui-state-active");
-            $(h4)
-                .nextUntil("h4, h3, h2, h1")
-                .hide()
-                .removeClass("ui-state-active");
-
-        });
-
-        /* Open clicked h3 and close all other h3s */
-        $(h3).click(function () {
-            $(this).siblings("h3").nextUntil("h3, h2, h1").slideUp();
-            $(this).siblings("h3").removeClass("ui-state-active");
-
-            $(this).nextUntil("h3, h2, h1").slideToggle();
-            $(this).toggleClass("ui-state-active");
-
-            /* But we need to force the subfolders to close  */
-            $(h4)
-                .nextUntil("h4, h3, h2, h1")
-                .hide()
-                .removeClass("ui-state-active");
-        });
-
-        /* Toggling for h4 folders */
-        $(h4).click(function () {
-            $(this).nextUntil("h4, h3, h2, h1").slideToggle();
-            $(this).toggleClass("ui-state-active");
-        });
-
-
-        $(h2).addClass("fun");
 
     });
 
