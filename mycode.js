@@ -24,16 +24,13 @@ function toggleH4() {
         newBlock.slideToggle();
         newBlock.nextUntil("h4, h3, h2, h1").slideToggle();
         $(this).toggleClass("ui-state-active");
-        // TODO: delete margins of said hidden image div
+        // TODO: toggle margins of said hidden image div
     } else {
-        closeItem(this);
+        $(this).nextUntil("h4, h3, h2, h1").slideToggle();
+        $(this).toggleClass("ui-state-active");
     }
 }
 
-function closeItem(item) {
-    $(this).nextUntil("h4, h3, h2, h1").slideUp();
-    $(this).removeClass("ui-state-active");
-}
 
 $(document).ready(function () {
 
@@ -46,14 +43,16 @@ $(document).ready(function () {
     $(".html-block .sqs-block-content h2 i").last().removeClass(icon)
 
     /* Close all tabs to begin with */
-    $(img).slideUp();
-    $(h1).nextUntil("h1").slideUp();
-    $(h2).nextUntil("h2, h1").slideUp();
-    $(h3).nextUntil("h3, h2, h1").slideUp();
-    $(h4).nextUntil("h4, h3, h2, h1").slideUp();
-    var b = $(img).parentsUntil(".sqs-block").parent().next().children().children().first();
-    b.slideToggle();
-    b.nextUntil("h4, h3, h2, h1").slideToggle();
+    // $(img).slideUp();
+    // $(h1).nextUntil("h1").slideUp();
+    // $(h2).nextUntil("h2, h1").slideUp();
+    // $(h3).nextUntil("h3, h2, h1").slideUp();
+    // $(h4).nextUntil("h4, h3, h2, h1").slideUp();
+    // $(h3).each(closeH3);
+    // $(h4).each(closeH4);
+    // var b = $(img).parentsUntil(".sqs-block").parent().next().children().children().first();
+    // b.slideToggle();
+    // b.nextUntil("h4, h3, h2, h1").slideToggle();
 
     //Open h3 subheadings as well
     // $(h3).slideDown();
@@ -72,7 +71,6 @@ $(document).ready(function () {
         //Toggle appearance of h4
         $(this).nextUntil("h3").next("h4").slideToggle();
     });
-
 
     $(h4).click(toggleH4);
 
