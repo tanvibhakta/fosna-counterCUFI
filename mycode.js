@@ -12,6 +12,33 @@ function nextBlock(item) {
     return $(item).parentsUntil(".sqs-block").parent().next();
 }
 
+function closeImg(item, headers) {
+
+    //Any image that comes after it
+    let nb = nextBlock(item).slideUp();
+
+    //Paragraphs in the next block until the next heading
+    nb = nb.next().children().children().first();
+    nb.slideUp();
+    nb.nextUntil(headers).slideUp();
+    $(item).removeClass("ui-state-active");
+    // TODO: delete margins of said hidden image div
+}
+
+function closeH4() {
+
+    $(this).nextUntil("h4, h3, h2, h1").slideUp();
+    $(this).removeClass("ui-state-active");
+
+    //no end in current block
+    if ($(this).nextAll("h4, h3, h2, h1").length == 0) {
+        if (nextBlock(this).has("figure")) {
+            closeImg(this, "h4, h3, h2, h1");
+        }
+    }
+}
+
+
 /* Toggle state of clicked h4 */
 function toggleH4() {
 
@@ -25,9 +52,9 @@ function toggleH4() {
         nb.slideToggle();
 
         //Paragraphs in the next block until the next heading
-        const newBlock = $(this).parentsUntil(".sqs-block").parent().next().next().children().children().first();
-        newBlock.slideToggle();
-        newBlock.nextUntil("h4, h3, h2, h1").slideToggle();
+        nb = nb.next().children().children().first();
+        nb.slideToggle();
+        nb.nextUntil("h4, h3, h2, h1").slideToggle();
         $(this).toggleClass("ui-state-active");
         // TODO: toggle margins of said hidden image div
     } else {
@@ -54,7 +81,7 @@ $(document).ready(function () {
     // $(h3).nextUntil("h3, h2, h1").slideUp();
     // $(h4).nextUntil("h4, h3, h2, h1").slideUp();
     // $(h3).each(closeH3);
-    // $(h4).each(closeH4);
+    $(h4).each(closeH4);
     // var b = $(img).parentsUntil(".sqs-block").parent().next().children().children().first();
     // b.slideToggle();
     // b.nextUntil("h4, h3, h2, h1").slideToggle();
