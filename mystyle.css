@@ -1,0 +1,22 @@
+i {
+    padding-right: 0.5rem;
+    -webkit-transition: all 300ms ease-in 0s;
+    -moz-transition: all 300ms ease-in 0s;
+    -o-transition: all 300ms ease-in 0s;
+    transition: all 300ms ease-in 0s;
+}
+
+.ui-state-active i {
+    padding-right: unset;
+    padding-top: 0.5rem;
+    padding-left: 0.5rem;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.fun {
+    background-color: aqua;
+}
