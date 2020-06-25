@@ -50,8 +50,28 @@ function closeH4() {
 }
 
 
+function closeH3() {
 
+    //ensure all h4s are closed
+    closeH4()
+    $(this).nextUntil("h3, h2, h1").slideUp();
+    $(this).removeClass("ui-state-active");
 
+    let current = this
+    //no end right there
+    while ($(current).nextAll("h3, h2, h1").length == 0) {
+
+        //there is an image
+        if (nextBlock(current).has("figure")) {
+            closeImg(current, "h3, h2, h1");
+        }
+        if (current.has("h3, h2, h1").length == 0) {
+            $(current).children().children().first().nextUntil("h3, h2, h1").slideUp();
+
+        }
+        current = $(current).next;
+    }
+}
 
 /* Toggle state of clicked h4 */
 function toggleH4() {
@@ -104,6 +124,7 @@ $(document).ready(function () {
         $(this).nextUntil("h3").next("h4").slideToggle();
     });
 
+    $(h3).click(closeH3);
     $(h4).click(toggleH4);
 
 });
