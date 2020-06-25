@@ -25,42 +25,42 @@ function closeImg(item, headers) {
     // TODO: delete margins of said hidden image div
 }
 
+function toggleImg(item, headers) {
+
+    //Any image that comes after it
+    let nb = nextBlock(item).slideToggle();
+
+    //Paragraphs in the next block until the next heading
+    nb = nb.next().children().children().first();
+    nb.slideToggle();
+    nb.nextUntil(headers).slideToggle();
+    $(item).toggleClass("ui-state-active");
+    // TODO: toggle margins of said hidden image div
+}
+
 function closeH4() {
 
     $(this).nextUntil("h4, h3, h2, h1").slideUp();
     $(this).removeClass("ui-state-active");
 
-    //no end in current block
+    //no end in current block implies there is a new block with image
     if ($(this).nextAll("h4, h3, h2, h1").length == 0) {
-        if (nextBlock(this).has("figure")) {
-            closeImg(this, "h4, h3, h2, h1");
-        }
+        closeImg(this, "h4, h3, h2, h1");
     }
 }
 
 
+
+
+
 /* Toggle state of clicked h4 */
 function toggleH4() {
+    $(this).nextUntil("h4, h3, h2, h1").slideToggle();
+    $(this).toggleClass("ui-state-active");
 
-    //contains image
-    if ($(this).nextAll("h4, h3, h2, h1").length == 0) {
-
-        $(this).nextUntil("h4, h3, h2, h1").slideToggle();
-
-        //Any image that comes after it
-        let nb = nextBlock(this);
-        nb.slideToggle();
-
-        //Paragraphs in the next block until the next heading
-        nb = nb.next().children().children().first();
-        nb.slideToggle();
-        nb.nextUntil("h4, h3, h2, h1").slideToggle();
-        $(this).toggleClass("ui-state-active");
-        // TODO: toggle margins of said hidden image div
-    } else {
-        $(this).nextUntil("h4, h3, h2, h1").slideToggle();
-        $(this).toggleClass("ui-state-active");
-    }
+    //no end in current block implies there is a new block with image
+    if ($(this).nextAll("h4, h3, h2, h1").length == 0)
+        toggleImg(this, "h4, h3, h2, h1")
 }
 
 
