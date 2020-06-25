@@ -8,6 +8,10 @@ const all = [h1, h2, h3, h4].join(', ');
 
 const icon = "fa fa-caret-right";
 
+function nextBlock(item) {
+    return $(item).parentsUntil(".sqs-block").parent().next();
+}
+
 /* Toggle state of clicked h4 */
 function toggleH4() {
 
@@ -17,7 +21,8 @@ function toggleH4() {
         $(this).nextUntil("h4, h3, h2, h1").slideToggle();
 
         //Any image that comes after it
-        $(this).parentsUntil(".sqs-block").parent().next().slideToggle();
+        let nb = nextBlock(this);
+        nb.slideToggle();
 
         //Paragraphs in the next block until the next heading
         const newBlock = $(this).parentsUntil(".sqs-block").parent().next().next().children().children().first();
