@@ -24,7 +24,7 @@ const icon = "fa fa-caret-right";
  */
 function nextBlock(item) {
     //sqs-block is a class that defines a Squarespace block
-    const $currentBlock =  $(item).closest(".sqs-block");
+    const $currentBlock = $(item).closest(".sqs-block");
     return $currentBlock.next();
 }
 
