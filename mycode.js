@@ -81,17 +81,45 @@ function toggle(header) {
     let toggleables = [];
     let headerSelector = constructHeaderSelector(header);
 
-    let $c = $(header).nextAll();
+    if($(header).nextAll(headerSelector).length) {
+        // We have a sibling in our block that's an appropriate header
+        // We just add these siblings to our toggleables list, and call it done
+        toggleables = [$(header).nextUntil(headerSelector)];
+    } else {
+        // We don't hae a sibling in our block that is an appropriate header
+        // We try the next block, and keep trying until we find one
 
-    //There's an infinite loop here 
-    while ($c.has(headerSelector).length == 0) {
-        toggleables.push($c)
-        $c = nextBlock(header)
+        // Add all siblings in block to toggleables list
+        toggleables = [$(header).nextAll()];
+
+        // While nextBlock doesn't have a child that matches headerSelector
+        // add it to toggleables, and keep going
+        let $nb = nextBlock(header);
+        while (true) {
+            if (!$nb.length) {
+                // Avoid infinite loops when we are near end of page
+                break;
+            }
+            // Fetch the actual div that has content
+            const $nbContent = $nb.find('.sqs-block-content');
+
+            if ($nbContent.children(headerSelector).length) {
+                // We have a header in this block!
+                // Let's add everything until then, and call it a day
+                // FIXME: Not sure how to get 'all children until something matches' so...
+                toggleables.push($nbContent.children().first());
+                toggleables.push($nbContent.children().first().nextUntil(headerSelector))
+                break;
+            } else {
+                // No header in this block, keep going
+                toggleables.push($nbContent.children())
+                $nb = nextBlock($nb)
+            }
+
+        }
     }
-    toggleables.push($c.first());
-    toggleables.push($c.first().nextUntil(headerSelector));
-
-    toggleables.forEach(node => $(node).slideToggle());
+    console.log(toggleables);
+    toggleables.forEach((t) => $(t).slideToggle());
 
 // while ($(item).nextUntil(headers).length == 0) {
 //     $(item).nextAll(headers).slideUp();
@@ -188,22 +216,26 @@ $(document).ready(function () {
     //Open H3 subheadings as well
     // $(H3).slideDown();
 
-    /* Toggle state of clicked H2 */
-    $(H2).click(function () {
-        $(this).nextUntil("H4, H3, H2, H1").slideToggle();
-        $(this).toggleClass("ui-state-active");
+    // /* Toggle state of clicked H2 */
+    // $(H2).click(function () {
+    //     $(this).nextUntil("H4, H3, H2, H1").slideToggle();
+    //     $(this).toggleClass("ui-state-active");
+    // });
+
+    // /* Toggle state of clicked H3 */
+    // $(H3).click(function () {
+    //     $(this).nextUntil("H4, H3, H2, H1").slideToggle();
+    //     $(this).toggleClass("ui-state-active");
+
+    //     //Toggle appearance of H4
+    //     $(this).nextUntil("H3").next("H4").slideToggle();
+    // });
+
+    // $(H3).click(closeH3);
+    // $(H4).click(toggle);
+
+    $('[data-section-id="5ee2523e3dba006e9becb097"]').find('h1, h2, h3, h4, h5').click(function() {
+        toggle(this)
     });
-
-    /* Toggle state of clicked H3 */
-    $(H3).click(function () {
-        $(this).nextUntil("H4, H3, H2, H1").slideToggle();
-        $(this).toggleClass("ui-state-active");
-
-        //Toggle appearance of H4
-        $(this).nextUntil("H3").next("H4").slideToggle();
-    });
-
-    $(H3).click(closeH3);
-    $(H4).click(toggle);
 
 });
