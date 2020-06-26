@@ -1,10 +1,10 @@
 //Sections are higher levels of organisation in SquareSpace.
 // data-section-id is an identifier for it and does not change.
 // We are currently only interested in targeting the content from this one section.
-const H1 = '[data-section-id="5ee2523e3dba006e9becb097"] .html-block .sqs-block-content h1';
-const H2 = '[data-section-id="5ee2523e3dba006e9becb097"] .html-block .sqs-block-content h2';
-const H3 = '[data-section-id="5ee2523e3dba006e9becb097"] .html-block .sqs-block-content h3';
-const H4 = '[data-section-id="5ee2523e3dba006e9becb097"] .html-block .sqs-block-content h4';
+const H1 = '[data-section-id="5ee2523e3dba006e9becb097"] .html-block .sqs-block-content H1';
+const H2 = '[data-section-id="5ee2523e3dba006e9becb097"] .html-block .sqs-block-content H2';
+const H3 = '[data-section-id="5ee2523e3dba006e9becb097"] .html-block .sqs-block-content H3';
+const H4 = '[data-section-id="5ee2523e3dba006e9becb097"] .html-block .sqs-block-content H4';
 const IMG = '[data-section-id="5ee2523e3dba006e9becb097"] .sqs-block-image figure';
 
 //Convenience selector for when you want to select all headers
