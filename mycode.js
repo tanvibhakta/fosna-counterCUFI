@@ -249,5 +249,8 @@ $(document).ready(function () {
     $([H2, H4, H3].join(', ')).each(function() {
         $(this).addClass("ui-state-active");
     })
+    $(H4).each(function() {
+        toggle(this);
+    })
 
 });
