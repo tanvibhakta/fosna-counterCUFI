@@ -48,6 +48,20 @@ function toggleImg(item, headers) {
     // TODO: toggle margins of said hidden image div
 }
 
+/**
+ * This function takes a header and returns a list of headers that the blocks
+ * need to toggle items until, sorted in decreasing order of priority
+ * @param header A node
+ * @returns {string} A list of headers, sorted in decreasing order of priority
+ */
+function constructHeaderSelector(header) {
+    //Fixme: must check if items are things other than h1, h2 , h3, h4!
+    //Fixme: better variable name!!
+    let b = [H4, H3, H2, H1];
+    const index = b.map(element => element.includes(header.nodeName) ? b.indexOf(element) : null).filter(element => element != null).slice(-1)[0]
+    return b.slice(index).join(", ");
+}
+
 function closeH4() {
 
     $(this).nextUntil("h4, h3, h2, h1").slideUp();
