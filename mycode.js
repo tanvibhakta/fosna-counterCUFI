@@ -62,6 +62,54 @@ function constructHeaderSelector(header) {
     return b.slice(index).join(", ");
 }
 
+/**
+ * Given a header, will skip through blocks, closing them, until it
+ * reaches the one of the appropriate headers at which to stop
+ * @param header A Node that is one of ("h1, h2, h3, h4")
+ *
+ */
+function toggle(header) {
+    //Fixme: must check if items are things other than h1, h2 , h3, h4!
+    $(header).toggleClass("ui-state-active");
+
+    // header
+    //     - Check where the next header is
+    //         - toggle all the nodes under it until header
+    //         - if next header not reached, skip to the next block
+    //         - keep skipping until the header is reached
+
+    let toggleables = [];
+    let headerSelector = constructHeaderSelector(header);
+
+    let $c = $(header).nextAll();
+
+    //There's an infinite loop here 
+    while ($c.has(headerSelector).length == 0) {
+        toggleables.push($c)
+        $c = nextBlock(header)
+    }
+    toggleables.push($c.first());
+    toggleables.push($c.first().nextUntil(headerSelector));
+
+    toggleables.forEach(node => $(node).slideToggle());
+
+// while ($(item).nextUntil(headers).length == 0) {
+//     $(item).nextAll(headers).slideUp();
+// }
+//
+// //Any image that comes after it
+// //Fixme: give me a reasonable variable name?
+// let nb = nextBlock(item).slideToggle();
+//
+// //Paragraphs in the next block until the next heading
+// nb = nextBlock(nb).children().children().first();
+// nb.slideToggle();
+// nb.nextUntil(headers).slideToggle();
+// // TODO: toggle margins of said hidden image div
+//
+
+}
+
 function closeH4() {
 
     $(this).nextUntil("h4, h3, h2, h1").slideUp();
