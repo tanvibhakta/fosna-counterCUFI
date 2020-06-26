@@ -29,23 +29,12 @@ function nextBlock(item) {
 }
 
 /**
- *
- * @param item
- * @param headers
+ * This function closes the image present in the content of the item passed,
+ * as well as the following items, until it reaches the next header
+ * @param item Any node inside a block
+ * @param headers A selector that is a string of headers in descending order of priority
+ *                that the function looks for to find a closing case
  */
-function closeImg(item, headers) {
-
-    //Any image that comes after it
-    let nb = nextBlock(item).slideUp();
-
-    //Paragraphs in the next block until the next heading
-    nb = nb.next().children().children().first();
-    nb.slideUp();
-    nb.nextUntil(headers).slideUp();
-    $(item).removeClass("ui-state-active");
-    // TODO: delete margins of said hidden image div
-}
-
 function toggleImg(item, headers) {
 
     //Any image that comes after it
