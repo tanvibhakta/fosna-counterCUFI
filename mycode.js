@@ -1,17 +1,36 @@
+//Sections are higher levels of organisation in SquareSpace.
+// data-section-id is an identifier for it and does not change.
+// We are currently only interested in targeting the content from this one section.
 const h1 = '[data-section-id="5ee2523e3dba006e9becb097"] .html-block .sqs-block-content h1';
 const h2 = '[data-section-id="5ee2523e3dba006e9becb097"] .html-block .sqs-block-content h2';
 const h3 = '[data-section-id="5ee2523e3dba006e9becb097"] .html-block .sqs-block-content h3';
 const h4 = '[data-section-id="5ee2523e3dba006e9becb097"] .html-block .sqs-block-content h4';
 const img = '[data-section-id="5ee2523e3dba006e9becb097"] .sqs-block-image figure';
 
+//Convenience selector for when you want to select all headers
+//FIXME: change name of variable to be more indicative of true purpose
+//FIXME: Is this even needed?
 const all = [h1, h2, h3, h4].join(', ');
 
+//Allows for change of type of expansion icon. Comes from Font Awesome.
+//FIXME: change name of variable to be more indicative of true purpose
 const icon = "fa fa-caret-right";
 
+/**
+ * Given item, this function returns a jQuery object of the block occuring after the item's block.
+ * A block is a unit of Squarespace content.
+ * @param {jQuery} item Any node inside a block
+ * @returns {jQuery} The block immediately after the block item is in.
+ */
 function nextBlock(item) {
     return $(item).parentsUntil(".sqs-block").parent().next();
 }
 
+/**
+ *
+ * @param item
+ * @param headers
+ */
 function closeImg(item, headers) {
 
     //Any image that comes after it
