@@ -69,8 +69,6 @@ function constructHeaderSelector(header) {
  *
  */
 function toggle(header) {
-    //Fixme: must check if items are things other than h1, h2 , h3, h4!
-    $(header).toggleClass("ui-state-active");
 
     // header
     //     - Check where the next header is
@@ -119,7 +117,18 @@ function toggle(header) {
         }
     }
     console.log(toggleables);
-    toggleables.forEach((t) => $(t).slideToggle());
+
+
+    toggleables.forEach((t) => {
+        if ($(header).hasClass('ui-state-active')) {
+            $(t).slideUp();
+            $(t).removeClass('ui-state-active');
+        } else {
+            $(t).slideDown();
+        }
+    });
+
+    $(header).toggleClass("ui-state-active");
 
 // while ($(item).nextUntil(headers).length == 0) {
 //     $(item).nextAll(headers).slideUp();
@@ -237,5 +246,8 @@ $(document).ready(function () {
     $('[data-section-id="5ee2523e3dba006e9becb097"]').find('h1, h2, h3, h4, h5').click(function() {
         toggle(this)
     });
+    $([H2, H4, H3].join(', ')).each(function() {
+        $(this).addClass("ui-state-active");
+    })
 
 });
