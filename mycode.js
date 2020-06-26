@@ -38,13 +38,13 @@ function nextBlock(item) {
 function toggleImg(item, headers) {
 
     //Any image that comes after it
+    //Fixme: give me a reasonable variable name?
     let nb = nextBlock(item).slideToggle();
 
     //Paragraphs in the next block until the next heading
-    nb = nb.next().children().children().first();
+    nb = nextBlock(nb).children().children().first();
     nb.slideToggle();
     nb.nextUntil(headers).slideToggle();
-    $(item).toggleClass("ui-state-active");
     // TODO: toggle margins of said hidden image div
 }
 
