@@ -112,12 +112,12 @@ function toggle(header) {
 
 function closeH4() {
 
-    $(this).nextUntil("h4, h3, h2, h1").slideUp();
+    $(this).nextUntil("H4, H3, H2, H1").slideUp();
     $(this).removeClass("ui-state-active");
 
     //no end in current block implies there is a new block with image
-    if ($(this).nextAll("h4, h3, h2, h1").length == 0) {
-        closeImg(this, "h4, h3, h2, h1");
+    if ($(this).nextAll("H4, H3, H2, H1").length == 0) {
+        toggleImg(this, "H4, H3, H2, H1");
     }
 }
 
@@ -126,77 +126,84 @@ function closeH3() {
 
     //ensure all h4s are closed
     closeH4()
-    $(this).nextUntil("h3, h2, h1").slideUp();
+    $(this).nextUntil("H3, H2, H1").slideUp();
     $(this).removeClass("ui-state-active");
 
     let current = this
+    console.log("1", current);
     //no end right there
-    while ($(current).nextAll("h3, h2, h1").length == 0) {
+    while ($(current).length != 0 && $(current).nextAll("H3, H2, H1").length == 0) {
 
+        console.log("2", current);
         //there is an image
         if (nextBlock(current).has("figure")) {
-            closeImg(current, "h3, h2, h1");
+            toggleImg(current, "H3, H2, H1");
+            current = $(current).next();
+            console.log("3", current);
         }
-        if (current.has("h3, h2, h1").length == 0) {
-            $(current).children().children().first().nextUntil("h3, h2, h1").slideUp();
+        if (current.has("H3, H2, H1").length == 0) {
+            $(current).children().slideUp();
+        } else {
+            $(current).children().children().first().nextUntil("H3, H2, H1").slideUp();
+        }
+        current = $(current).next();
+        console.log("4", current);
 
-        }
-        current = $(current).next;
     }
 }
 
-/* Toggle state of clicked h4 */
+/* Toggle state of clicked H4 */
 function toggleH4() {
-    $(this).nextUntil("h4, h3, h2, h1").slideToggle();
+    $(this).nextUntil("H4, H3, H2, H1").slideToggle();
     $(this).toggleClass("ui-state-active");
 
     //no end in current block implies there is a new block with image
-    if ($(this).nextAll("h4, h3, h2, h1").length == 0)
-        toggleImg(this, "h4, h3, h2, h1")
+    if ($(this).nextAll("H4, H3, H2, H1").length == 0)
+        toggleImg(this, "H4, H3, H2, H1")
 }
 
 
 $(document).ready(function () {
 
-    /* Setup cursors to show over h1, h2, h3, h4 */
+    /* Setup cursors to show over H1, H2, H3, H4 */
     /* Appending the FA icon to every heading */
     $(all).prepend("<i />").css("cursor", "pointer");
-    $("i").addClass(icon);
+    $("i").addClass(icon, "ui-state-active");
 
     /* Remove the arrow from the last link TODO: hardcoded, fix */
-    $(".html-block .sqs-block-content h2 i").last().removeClass(icon)
+    $(".html-block .sqs-block-content H2 i").last().removeClass(icon, "ui-state-active");
 
     /* Close all tabs to begin with */
-    // $(img).slideUp();
-    // $(h1).nextUntil("h1").slideUp();
-    // $(h2).nextUntil("h2, h1").slideUp();
-    // $(h3).nextUntil("h3, h2, h1").slideUp();
-    // $(h4).nextUntil("h4, h3, h2, h1").slideUp();
-    // $(h3).each(closeH3);
-    $(h4).each(closeH4);
-    // var b = $(img).parentsUntil(".sqs-block").parent().next().children().children().first();
+    // $(IMG).slideUp();
+    // $(H1).nextUntil("H1").slideUp();
+    // $(H2).nextUntil("H2, H1").slideUp();
+    // $(H3).nextUntil("H3, H2, H1").slideUp();
+    // $(H4).nextUntil("H4, H3, H2, H1").slideUp();
+    // $(H3).each(closeH3);
+    // $(H4).each(closeH4);
+    // var b = $(IMG).parentsUntil(".sqs-block").parent().next().children().children().first();
     // b.slideToggle();
-    // b.nextUntil("h4, h3, h2, h1").slideToggle();
+    // b.nextUntil("H4, H3, H2, H1").slideToggle();
 
-    //Open h3 subheadings as well
-    // $(h3).slideDown();
+    //Open H3 subheadings as well
+    // $(H3).slideDown();
 
-    /* Toggle state of clicked h2 */
-    $(h2).click(function () {
-        $(this).nextUntil("h4, h3, h2, h1").slideToggle();
+    /* Toggle state of clicked H2 */
+    $(H2).click(function () {
+        $(this).nextUntil("H4, H3, H2, H1").slideToggle();
         $(this).toggleClass("ui-state-active");
     });
 
-    /* Toggle state of clicked h3 */
-    $(h3).click(function () {
-        $(this).nextUntil("h4, h3, h2, h1").slideToggle();
+    /* Toggle state of clicked H3 */
+    $(H3).click(function () {
+        $(this).nextUntil("H4, H3, H2, H1").slideToggle();
         $(this).toggleClass("ui-state-active");
 
-        //Toggle appearance of h4
-        $(this).nextUntil("h3").next("h4").slideToggle();
+        //Toggle appearance of H4
+        $(this).nextUntil("H3").next("H4").slideToggle();
     });
 
-    $(h3).click(closeH3);
-    $(h4).click(toggleH4);
+    $(H3).click(closeH3);
+    $(H4).click(toggle);
 
 });
