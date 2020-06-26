@@ -19,11 +19,13 @@ const icon = "fa fa-caret-right";
 /**
  * Given item, this function returns a jQuery object of the block occuring after the item's block.
  * A block is a unit of Squarespace content.
- * @param {jQuery} item Any node inside a block
+ * @param item Any node inside a block
  * @returns {jQuery} The block immediately after the block item is in.
  */
 function nextBlock(item) {
-    return $(item).parentsUntil(".sqs-block").parent().next();
+    //sqs-block is a class that defines a Squarespace block
+    const $currentBlock = $(item).parents(".sqs-block");
+    return $currentBlock.next();
 }
 
 /**
