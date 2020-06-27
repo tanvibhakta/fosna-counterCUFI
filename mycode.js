@@ -32,13 +32,24 @@ function nextBlock(item) {
  * This function takes a header and returns a list of headers that the blocks
  * need to toggle items until, sorted in decreasing order of priority
  * @param header A node
+ * @param opp {boolean} A parameter that ensures the function returns the inverse of desired result
  * @returns {string} A list of headers, sorted in decreasing order of priority
  */
-function constructHeaderSelector(header) {
+function constructHeaderSelector(header, opp = false) {
     //Fixme: must check if items are things other than h1, h2 , h3, h4!
     //Fixme: better variable name!!
     let b = [H4, H3, H2, H1];
-    const index = b.map(element => element.includes(header.nodeName) ? b.indexOf(element) : null).filter(element => element != null).slice(-1)[0]
+    const index = b
+        .map(element =>
+            element.includes(header.nodeName) ?
+            b.indexOf(element) :
+            null)
+        .filter(element => element != null)
+        .slice(-1)[0]
+
+    if (opp) {
+        return b.slice(0, index).join(", ");
+    }
     return b.slice(index).join(", ");
 }
 
@@ -103,6 +114,8 @@ function toggle(header) {
             $(t).slideUp();
             $(t).removeClass('ui-state-active');
         } else {
+            let oppHS = constructHeaderSelector(header, true);
+            oppHS && $(t).siblings(oppHS).addClass('ui-state-active');
             $(t).slideDown();
         }
     });
