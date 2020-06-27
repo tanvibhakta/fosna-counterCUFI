@@ -21,22 +21,22 @@ figcaption {
     padding-top: 0 !important;
 }
 
-figcaption p {
-    margin-bottom: 0 !important;
-}
-
-.sqs-block-image {
+.sqs-block {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
 }
 
-.no-margin-bottom {
-    margin-bottom: 0 !important;
+.image-block-outer-wrapper {
+    padding-top: 1rem !important;
 }
 
-.no-margin-top {
-    margin-top: 0 !important;
+.no-vertical-padding {
     padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+h1, h2, h3, h4, h5 {
+    margin: 1rem auto;
 }
 
 .fun {

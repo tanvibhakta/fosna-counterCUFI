@@ -67,7 +67,6 @@ function toggle(header) {
         // We don't have a sibling in our block that is an appropriate header
         // We try the next block, and keep trying until we find one
 
-        $(header).toggleClass("no-margin-bottom");
         // Add all siblings in block to toggleables list
         toggleables = [$(header).nextAll()];
 
@@ -79,6 +78,7 @@ function toggle(header) {
                 // Avoid infinite loops when we are near end of page
                 break;
             }
+
             // Fetch the actual div that has content
             const $nbContent = $nb.find('.sqs-block-content');
 
@@ -107,7 +107,6 @@ function toggle(header) {
         }
     });
 
-    $(toggleables[toggleables.length-1]).last().next().toggleClass("no-margin-top")
     $(header).toggleClass("ui-state-active");
 }
 
