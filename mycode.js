@@ -64,9 +64,10 @@ function toggle(header) {
         // We just add these siblings to our toggleables list, and call it done
         toggleables = [$(header).nextUntil(headerSelector)];
     } else {
-        // We don't hae a sibling in our block that is an appropriate header
+        // We don't have a sibling in our block that is an appropriate header
         // We try the next block, and keep trying until we find one
 
+        $(header).toggleClass("no-margin-bottom");
         // Add all siblings in block to toggleables list
         toggleables = [$(header).nextAll()];
 
@@ -106,6 +107,7 @@ function toggle(header) {
         }
     });
 
+    $(toggleables[toggleables.length-1]).last().next().toggleClass("no-margin-top")
     $(header).toggleClass("ui-state-active");
 }
 
