@@ -17,6 +17,19 @@ i {
     transform: rotate(90deg);
 }
 
+figcaption {
+    padding-top: 0 !important;
+}
+
+figcaption p {
+    margin-bottom: 0 !important;
+}
+
+.sqs-block-image {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
 .fun {
     background-color: aqua;
 }
